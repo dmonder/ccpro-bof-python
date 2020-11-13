@@ -1,36 +1,16 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This is a temporary script file.
-"""
-
-
-import pandas as pd
 import os
+import pandas as pd
 
-os.chdir(r'M:\01_Python\01a_StudentCourseSec')
+data_path = "M:/01_Python/01a_StudentCourseSec"
 
-os.getcwd()
+stc_fn = 'Warehouse2020FA 1A STUDENT.COURSE.SEC V1.csv'
 
-stcraw ='Warehouse2020FA 1A STUDENT.COURSE.SEC V1.csv'
+# You don’t need to change directories to read the file
+stc = pd.read_csv(os.path.join(data_path,stc_fn))
 
-stc = pd.read_csv(stcraw, nrows=1)
-
-names = stc.columns
-namesclean = []
-
-print(names)
-
-for name in names:
-    j = name.replace(' ','')
-    k = j.replace('Stc','')
-    namesclean.append(k)
-
-print(names)
-print(namesclean)
-
-stccleancolumns = pd.read_csv(stcraw, names=namesclean)
-
-stccleancolumns.columns
-
+print(stc.columns)
+# The Pythonic way to rename the columns is to do it like this.
+# This uses a regular expression to find all whitespace characters (\s) or (the |)
+# the sequence "Stc" possibly (the ?) followed by whitespace (\s) and delete them.
+stc.columns = stc.columns.str.replace(r"\s|Stc\s?","")
+print(stc.columns)
