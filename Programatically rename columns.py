@@ -24,7 +24,7 @@ date_cols = [col for col in stc.columns if 'Date' in col]
 stc[date_cols]=stc[date_cols].apply(pd.to_datetime)
 
 '''Next, we want to retain data from one row to the next where the current row is blank - same idea as LAG.
-  one would think we would want to simply name the columns by name.  However, we actually dont'e know the 
+  one would think we would want to simply name the columns by name.  However, we actually don't know the 
   names of the columns, we just know their location.  Thus, we use the iloc method'''
 
 retained = [0,1,2,3,4,5,6,7,8,9]
