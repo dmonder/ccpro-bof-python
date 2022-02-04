@@ -35,10 +35,10 @@ for retain in retained:
 
 '''Next we want to array out the course status, start time, end time, room, building, and campus.  
 Below is the start of the course status where the first object is the most renect array'''
-    
+
 #create the section and dt (date time) variables
-stc['section'] = stc.scs_name+'-'+stc.scs_sectionNo
-stc['dt']=stc.scs_courseStatusDate+' '+stc.scs_courseStatusTime
+stc['section'] = f'{stc.scs_name}-{stc.scs_sectionNo}'
+stc['dt'] = f'{stc.scs_courseStatusDate} {stc.scs_courseStatusTime}'
 
 #convert dt to actual date times
 stc.loc[:,'scs_courseStatusDate_dt']=stc.dt.apply(pd.to_datetime)
@@ -47,7 +47,7 @@ stc.loc[:,'scs_courseStatusDate_dt']=stc.dt.apply(pd.to_datetime)
 stc.sort_values(by=['scs_id','section','scs_courseStatusDate_dt'], ascending=False, axis=0)
 
 #create the "group by" key for the pivot step
-stc['gradesKey'] = stc.scs_id+'*'+stc.section
+stc['gradesKey'] = f'{stc.scs_id}*{stc.section}'
 
 gradesCombined = stc.pivot(index='gradesKey',columns=0, values='st_courseStatus')
 
